@@ -2,9 +2,6 @@ import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
-
-import {postUpdated} from './postsSlice'
-
 export const EditPostForm = () => {
     const {id} = useParams()
 
@@ -21,12 +18,6 @@ export const EditPostForm = () => {
 
     const onContentHandler = e => setContent(e.target.value)
 
-    const onSaveChangesClicked = () => {
-        if(content){
-            dispatch(postUpdated({id: id, content}))
-            navigate(`/posts/${id}`)
-        }
-    }
 
     return(
         <section>
@@ -38,7 +29,7 @@ export const EditPostForm = () => {
                 name="postContent"
                 value={content}
                 onChange={onContentHandler}/>
-                <button  className="border p-2 w-64 rounded-lg bg-gray-800 text-white m-4 align-center" onClick={onSaveChangesClicked}>Save changes</button>
+                <button  className="border p-2 w-64 rounded-lg bg-gray-800 text-white m-4 align-center">Save changes</button>
             </form>
         </section>
     )
