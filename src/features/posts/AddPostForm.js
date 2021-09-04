@@ -49,7 +49,7 @@ export const AddPostForm = () => {
           onChange={onContentHandler}
         />
         <div className="flex justify-between">
-          <div>
+          <div className="flex">
             <label>
               <IoImageOutline className="text-2xl text-gray-600 m-3" />
               <input
@@ -60,14 +60,18 @@ export const AddPostForm = () => {
                 accept="image/png, image/jpeg"
                 onChange={addImage}
               />
+
             </label>
+
             {image && (
               <ImCancelCircle
-                className="text-2xl cursor-pointer"
+                className="m-2.5 text-2xl cursor-pointer text-gray-500"
                 onClick={removeImage}
                 title="Remove image"
               />
             )}
+
+
           </div>
           <div>
             <button

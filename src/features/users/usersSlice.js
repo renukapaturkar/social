@@ -13,7 +13,6 @@ export const getUser = createAsyncThunk(
     async(username, {fulfillWithValue, rejectWithValue}) => {
         try{
             const response = await axios.get(`https://socials-api-server-1.renukapaturkar.repl.co/users/${username}`)
-            console.log(response.data.user, "This is fpor get user")
             return fulfillWithValue(response.data.user)
         }catch(error){
             return rejectWithValue(error.response)
@@ -100,14 +99,19 @@ const usersSlice = createSlice({
         status: "idle", 
         error: null
     },
-    reducers: {}, 
+    reducers: {
+        updateUserProfile: (state, action) => {
+            console.log(action.payload)
+            state.user = action.payload
+            localStorage.setItem("userData", JSON.stringify(state.user))
+        }
+    }, 
     extraReducers: {
         [getUser.pending]: (state, action) => {
             state.status = "pending"
         }, 
         [getUser.fulfilled]: (state, action) => {
             state.status = "success"
-            console.log(action.payload, "action.payload")
             state.user = action.payload
     
         }, 
@@ -174,6 +178,8 @@ const usersSlice = createSlice({
 
     }
 })
+
+export const {updateUserProfile} = usersSlice.actions
 
 
 export default usersSlice.reducer

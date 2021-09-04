@@ -1,12 +1,13 @@
 import axios from 'axios'
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import { setupAuthHeaderForServiceCalls } from './utils/utils'
+import { clearLocalStorage } from './utils/clearLocalStorage'
 
 const currentUser = {
-    username: "", 
-    name: "", 
-    email: "", 
-    userId: "", 
+    email: "",
+    name: "",
+    username: "",
+    _id: ""
 }
 
 export const signUp = createAsyncThunk(
@@ -40,6 +41,8 @@ export const login = createAsyncThunk(
     }
 )
 
+
+
 const authSlice = createSlice({
     name: 'auth', 
     initialState: {
@@ -49,8 +52,15 @@ const authSlice = createSlice({
         error: null
     },
     reducers: {
-        setToken: (state,action) => {
-            state.token = action.payload
+        setData: (state, action) => {
+            console.log(action.payload, "This is the set Data after refresh")
+            state.token = action.payload.token
+            state.currentUser = action.payload.userData
+        }, 
+        logout: (state, action) => {
+            state.status ="idle"
+            state.token =""
+            clearLocalStorage()
         }
     }, 
 
@@ -70,6 +80,6 @@ const authSlice = createSlice({
     }
 })
 
-export const {setToken} =authSlice.actions
+export const {setData, logout} =authSlice.actions
 
 export default authSlice.reducer
