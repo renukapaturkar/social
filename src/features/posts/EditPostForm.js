@@ -4,8 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 export const EditPostForm = () => {
     const {id} = useParams()
-
-   
     const post = useSelector(state=> 
         state.posts.find(post=> post.id === id)
     )

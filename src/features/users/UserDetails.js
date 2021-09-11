@@ -4,21 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { FollowUser } from './FollowUser'
 import { Logout } from './Logout'
+import { UsersPosts } from './UsersPosts'
 import { getUser } from './usersSlice'
 
 export const UserDetails = () => {
   const { username } = useParams()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
-  console.log(user, 'user from profile')
-
   const { token, currentUser } = useSelector((state) => state.auth)
   const [status, setStatus] = useState('idle')
-
   const checkExistingUser = (currentUser, randomUser) => {
     return currentUser === randomUser
   }
-
   const EditButton = () => {
     return (
       <Link to={`/${user.username}/editprofile`}>
@@ -59,30 +56,30 @@ export const UserDetails = () => {
         <div className="flex m-1 justify-center">
           {user.profilePicture ? (
             <img
-              className="rounded-full w-32 h-32 md:w-12 md:h-12 object-cover"
+              className="rounded-full w-20 h-20 md:w-12 md:h-12 object-cover"
               src={user.profilePicture}
               alt="img"
             />
           ) : (
             <div
-              className={`flex text-3xl text-white items-center capitalize justify-center rounded-full w-16 h-16 bg-purple-600`}
+              className={`flex text-3xl text-white items-center capitalize justify-center rounded-full w-20 h-20 bg-purple-600`}
             >
               <span>{user.name?.substr(0, 1)}</span>
             </div>
           )}
         </div>
 
-        <div className="flex flex-col p-2">
+        <div className="flex flex-col p-1">
           <h1 className="text-lg">{user.name}</h1>
           <div className="text-xs">@{user.username}</div>
           <div className="text-sm">{user.bio}</div>
           <div className="flex">{editProfileButton}</div>
 
-          <div className="flex text-sm">
-            <Link to={`/${username}/followers`} className="py-1 m-1">
+          <div className="flex text-xs justify-evenly">
+            <Link to={`/${username}/followers`} className="px-0.5">
               {user.followers.length} followers
             </Link>
-            <Link to={`/${username}/following`} className="py-1 m-1">
+            <Link to={`/${username}/following`} className="px-0.5">
               {user.following.length} following
             </Link>
           </div>
@@ -94,8 +91,9 @@ export const UserDetails = () => {
   )
 
   return (
-    <div>
+    <div className="flex flex-col">
       {status === 'success' && renderedUserProfile}
+      <UsersPosts user={user} />
       {status === 'pending' && (
         <div className="text-xl text-center p-2">Loading...</div>
       )}

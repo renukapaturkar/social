@@ -1,4 +1,10 @@
 import { Link } from 'react-router-dom'
+import { DateFormat } from './utils/dateFormat'
+import { AiOutlineHeart } from 'react-icons/ai'
+import { AiOutlineShareAlt } from 'react-icons/ai'
+import { BsChat } from 'react-icons/bs'
+import { useDispatch } from 'react-redux'
+import { likePost } from './postsSlice'
 
 export const PostBody = ({ post }) => {
   const {
@@ -10,41 +16,66 @@ export const PostBody = ({ post }) => {
     createdAt,
     _id,
   } = post
+  const dispatch = useDispatch()
+
+  const likeButtonHandler = async (post) => {
+    try {
+      const result = await dispatch(likePost(_id))
+      console.log(result, 'result from LIKE OF POST')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <div className="bg-white mt-1 w-full p-1 md:p-0 md:max-w-lg shadow">
-      <div className="flex pl-2 pt-3">
-        {profilePicture ? (
-          <img
-            className="rounded-full w-12 h-12 object-cover"
-            src={profilePicture}
-            alt="img"
-          />
-        ) : (
-          <div
-            className={`flex text-2xl text-white items-center capitalize justify-center rounded-full w-12 h-12 bg-blue-600`}
-          >
-            <span>{name?.substr(0, 1)}</span>
+    <div className="flex flex-col bg-white mt-1 w-full p-1 md:p-0 md:max-w-lg shadow text-black justify-center">
+      <div className="flex p-2">
+        <div className="flex">
+          {profilePicture ? (
+            <img
+              className="rounded-full w-10 h-10 object-cover"
+              src={profilePicture}
+              alt="img"
+            />
+          ) : (
+            <div
+              className={`flex text-2xl text-white items-center capitalize justify-center rounded-full w-10 h-10 bg-blue-600`}
+            >
+              <span>{name?.substr(0, 1)}</span>
+            </div>
+          )}
+        </div>
+        <div className="flex p-1">
+          <div className="flex items-center">
+            <span>
+              <Link className="text-md font-semibold" to={`/${username}`}>
+                {name}
+              </Link>
+              <span className="px-1 text-xs">@{username}</span>
+              <span>{<DateFormat timestamp={createdAt} />}</span>
+            </span>
           </div>
-        )}
-      </div>
-      <div className="pl-3">
-        <div className="flex items-center">
-          <Link to={`/${username}`}>{username}</Link>
-          <div>{name}</div>
-          <div>{createdAt}</div>
         </div>
       </div>
 
       <div>
-        {image && <img src={image} alt={name} className="mt-2" />}
-        <p className="py-3 px-2">{content}</p>
+        {image && <img src={image} alt={name} className="w-full" />}
+        <p className="py-3 px-2 mx-2 text-sm font-normal ">{content}</p>
       </div>
-      <div className="flex justify-end text-gray-700">
-        <p className="mr-2">{likes.length} likes</p>
-        <p className="mr-2">{comments.length} comments</p>
-      </div>
-      <div className="flex justify-around my-1 border-t-2"></div>
+
+      <span className="flex p-3 text-gray-500 justify-evenly">
+        <button className="flex" onClick={() => likeButtonHandler(post)}>
+          <AiOutlineHeart className="w-5 h-5" />
+          <span className="px-1 text-sm">{likes.length}</span>
+        </button>
+        <Link to={`/${username}/posts/${post._id}`} className="flex">
+          <BsChat className="w-4 h-5" />
+          <span className="px-1 text-sm">{comments.length}</span>
+        </Link>
+        <button className="flex">
+          <AiOutlineShareAlt className="w-5 h-5" />
+        </button>
+      </span>
     </div>
   )
 }

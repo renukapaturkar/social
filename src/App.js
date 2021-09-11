@@ -15,13 +15,13 @@ import { setupAuthHeaderForServiceCalls } from './features/auth/utils/utils'
 import { EditProfile } from './features/users/EditProfile'
 import { Followers } from './features/users/Followers'
 import { Followings } from './features/users/Followings'
+import { Notifications } from './features/users/Notifications'
 const token = JSON.parse(localStorage.getItem('token'))
 const userData = JSON.parse(localStorage.getItem('userData'))
 
 function App() {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
-  console.log(user, 'user from app.js')
   useEffect(() => {
     if (token) {
       dispatch(setData({ token, userData }))
@@ -40,10 +40,14 @@ function App() {
           path="/:username/editprofile"
           element={<EditProfile user={user} />}
         />
+        <PrivateRoute path="notifications" element={<Notifications />} />
         <PrivateRoute path="/:username/followers" element={<Followers />} />
         <PrivateRoute path="/:username/following" element={<Followings />} />
-        <Route path="/posts/:id" element={<SinglePostPage />} />
-        <Route path="/editPost/:id" element={<EditPostForm />} />
+        <PrivateRoute
+          path="/:username/posts/:postId"
+          element={<SinglePostPage />}
+        />
+        <PrivateRoute path="/editPost/:id" element={<EditPostForm />} />
       </Routes>
     </div>
   )
