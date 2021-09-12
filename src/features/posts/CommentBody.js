@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { DateFormat } from './utils/dateFormat'
 
 export const CommentBody = ({ comments }) => {
-  console.log(comments, 'These are comments')
   const renderedComment = React.Children.toArray(
     comments?.map((item) => (
       <div className="bg-white mt-1 w-full p-1 md:p-0 md:max-w-lg rounded shadow">

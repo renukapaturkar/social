@@ -17,7 +17,7 @@ export const Signup = () => {
   })
 
   const onChangeHandler = (e) => {
-    setUserDetails((detail)=> ({
+    setUserDetails((userDetails)=> ({
       ...userDetails, 
       [e.target.name]: e.target.value
     }))
@@ -46,6 +46,7 @@ export const Signup = () => {
           confirmpassword: ""
         })
 
+
     }catch(error){
       console.log("somthing bad happened")
     }finally {
@@ -54,14 +55,15 @@ export const Signup = () => {
   }
 
 
+
+
   const submitHandler = (e) => {
     e.preventDefault();
-    const {name, email, username, password} = userDetails
     if(!passwordMatch){
       console.log("Password do not match")
-      return
+      return 
     }else {
-      createNewUser(name, email, username, password)
+      createNewUser();
     }
    
     

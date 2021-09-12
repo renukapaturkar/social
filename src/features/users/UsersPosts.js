@@ -27,13 +27,17 @@ export const UsersPosts = ({ user }) => {
     }
   }, [dispatch, token, user._id])
 
+
+  const orderedUserPosts = posts?.slice().sort((a,b) => b.createdAt.localeCompare(a.createdAt))
+
+
   const renderUsersPosts =
     posts.length === 0 ? (
       <div className="text-center">
         <p className="p-2">No posts yet!</p>
       </div>
     ) : (
-      React.Children.toArray(posts?.map((post) => <PostBody post={post} />))
+      React.Children.toArray(orderedUserPosts?.map((post) => <PostBody post={post} />))
     )
 
   return (

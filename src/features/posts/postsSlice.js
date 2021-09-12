@@ -104,7 +104,7 @@ export const getPost = createAsyncThunk(
       const response = await axios.get(
         `https://socials-api-server-1.renukapaturkar.repl.co/posts/${postId}`
       )
-      if (response.status) {
+      if (response.status === 200) {
         return fulfillWithValue(response.data.post)
       }
     } catch (error) {
@@ -117,7 +117,7 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
-    singlePost: '',
+    singlePost: "",
     status: 'idle',
     error: null,
   },
@@ -182,6 +182,7 @@ const postsSlice = createSlice({
       state.status = 'pending'
     },
     [postComment.fulfilled]: (state, action) => {
+      console.log(action.payload, "action.payload")
       state.status = 'success'
       state.singlePost = action.payload
     },

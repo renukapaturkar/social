@@ -14,7 +14,7 @@ export const SinglePostPage = () => {
   const [status, setStatus] = useState('idle')
   const [comment, setComment] = useState('')
   const post = useSelector((state) => state.posts.singlePost)
-  console.log(post, 'POSTYTTTTTTTTTTTTTTTTTTTTT')
+
 
   const isEmpty = Boolean(comment)
 
@@ -37,7 +37,6 @@ export const SinglePostPage = () => {
   const handleComment = async (post) => {
     try {
       const result = await dispatch(postComment({ postId: post._id, comment }))
-      console.log(result, 'This is result of dispatch for COMMENT')
       setComment('')
     } catch (error) {
       console.log(error)
@@ -71,7 +70,7 @@ export const SinglePostPage = () => {
   return (
     <>
       <div className="flex flex-col items-center">
-        <Link to="/" className="flex text-md justify-self-start">
+        <Link to="/home" className="flex text-md justify-self-start">
           <IoIosArrowBack />
           <span>Back</span>
         </Link>

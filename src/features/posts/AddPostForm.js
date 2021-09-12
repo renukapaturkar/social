@@ -13,8 +13,6 @@ export const AddPostForm = () => {
 
   const checkContent = Boolean(content) || Boolean(image)
 
-  console.log(content, image, 'This is content and Image')
-
   const onContentHandler = (e) => setContent(e.target.value)
 
   const addImage = (e) => {
@@ -30,7 +28,6 @@ export const AddPostForm = () => {
     try {
       setStatus('pending')
       const result = await dispatch(createPost({ content, image }))
-      console.log(result, 'This is the result of create post')
       unwrapResult(result)
       setContent('')
       setImage('')

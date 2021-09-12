@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
         localStorage.setItem('token', JSON.stringify(response.data.token))
         localStorage.setItem('userData', JSON.stringify(response.data.userData))
       }
-      return fulfillWithValue(response)
+      return fulfillWithValue(response.data)
     } catch (error) {
       return rejectWithValue(error.response)
     }
@@ -50,13 +50,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     currentUser: currentUser,
-    token: '',
+    token: "",
     status: 'idle',
     error: null,
   },
   reducers: {
     setData: (state, action) => {
-      console.log(action.payload, 'This is the set Data after refresh')
       state.token = action.payload.token
       state.currentUser = action.payload.userData
     },
@@ -80,6 +79,16 @@ const authSlice = createSlice({
       state.error = action.error.message
       state.status = 'failed'
     },
+    [signUp.pending]: (state, action) => {
+        state.status = "pending"
+    }, 
+    [signUp.fulfilled]: (state, action) => {
+        state.status = "success"
+    }, 
+    [signUp.rejected]: (state, action) => {
+        state.status = "failed"
+        state.error = action.error
+    }
   },
 })
 

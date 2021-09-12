@@ -27,20 +27,23 @@ function App() {
       dispatch(setData({ token, userData }))
       setupAuthHeaderForServiceCalls(token)
     }
-  }, [dispatch])
+  }, [dispatch,token])
+
   return (
     <div className="App">
       <Navbar />
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <PrivateRoute path="/" element={<PostsList />} />
+        <PrivateRoute path="/home" element={<PostsList />} />
         <PrivateRoute path="/:username" element={<UserDetails />} />
+        
+
         <PrivateRoute
           path="/:username/editprofile"
           element={<EditProfile user={user} />}
         />
-        <PrivateRoute path="notifications" element={<Notifications />} />
+        <PrivateRoute path="/notifications" element={<Notifications />} />
         <PrivateRoute path="/:username/followers" element={<Followers />} />
         <PrivateRoute path="/:username/following" element={<Followings />} />
         <PrivateRoute

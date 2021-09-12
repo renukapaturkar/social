@@ -21,15 +21,16 @@ export const PostBody = ({ post }) => {
   const likeButtonHandler = async (post) => {
     try {
       const result = await dispatch(likePost(_id))
-      console.log(result, 'result from LIKE OF POST')
     } catch (error) {
       console.log(error)
     }
   }
 
+
+
   return (
-    <div className="flex flex-col bg-white mt-1 w-full p-1 md:p-0 md:max-w-lg shadow text-black justify-center">
-      <div className="flex p-2">
+    <div className="flex flex-col bg-white mt-1 w-full p-1 md:p-0 md:max-w-lg shadow">
+      <div className="flex p-2 w-full md:max-w-lg">
         <div className="flex">
           {profilePicture ? (
             <img

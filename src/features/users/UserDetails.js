@@ -51,8 +51,8 @@ export const UserDetails = () => {
   }, [dispatch, token, username])
 
   const renderedUserProfile = status === 'success' && (
-    <div className="flex justify-center m-2">
-      <div className="flex p-2 w-full md:3/4 shadow-md justify-evenly relative">
+
+      <div className="flex p-2 w-full md:max-w-lg shadow-md justify-evenly relative">
         <div className="flex m-1 justify-center">
           {user.profilePicture ? (
             <img
@@ -87,16 +87,21 @@ export const UserDetails = () => {
         <div className="justify-self-end p-1">{renderLogoutButton}</div>
         <div className="absolute top-4 right-2 p-4">{renderFollowButton}</div>
       </div>
-    </div>
+
   )
 
   return (
-    <div className="flex flex-col">
+    
+          <div className="flex flex-col items-center">
       {status === 'success' && renderedUserProfile}
-      <UsersPosts user={user} />
       {status === 'pending' && (
         <div className="text-xl text-center p-2">Loading...</div>
       )}
+      <UsersPosts user={user} />
+
+
     </div>
+
+
   )
 }
