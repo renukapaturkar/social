@@ -73,7 +73,8 @@ export const createPost = createAsyncThunk(
         'https://socials-api-server-1.renukapaturkar.repl.co/posts/newpost',
         PostData
       )
-      return fulfillWithValue(response.data.data.data)
+      console.log(response.data.data, "response.data.data.data")
+      return fulfillWithValue(response.data.data)
     } catch (error) {
       return rejectWithValue(error.response)
     }
