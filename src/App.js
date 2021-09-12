@@ -34,7 +34,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <PrivateRoute path="/home" element={<PostsList />} />
         <PrivateRoute path="/:username" element={<UserDetails />} />
         
