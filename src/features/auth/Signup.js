@@ -140,7 +140,7 @@ export const Signup = () => {
           <div className="text-grey-dark mt-3 text-center">
             Already have an account?
             <Link
-              to="/login"
+              to="/"
               className=" p-0.5 text-sm text-blue-600 underline"
               
             >

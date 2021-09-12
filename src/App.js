@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom'
 import { Navbar } from './app/Navbar'
 import { Login } from './features/auth/Login'
 import { Signup } from './features/auth/Signup'
-import { EditPostForm } from './features/posts/EditPostForm'
 import { PostsList } from './features/posts/PostsList'
 import { SinglePostPage } from './features/posts/SinglePostPage'
 import { PrivateRoute } from './features/PrivateRoute'
@@ -50,7 +49,7 @@ function App() {
           path="/:username/posts/:postId"
           element={<SinglePostPage />}
         />
-        <PrivateRoute path="/editPost/:id" element={<EditPostForm />} />
+
       </Routes>
     </div>
   )
