@@ -29,7 +29,7 @@ export const PostBody = ({ post }) => {
   console.log(currentUser, "currentUser")
   const colorToggle = (post) => {
     if(post?.likes.includes(currentUser._id)) {
-      return "text-purple-600"
+      return "text-red-600"
     }else {
       return ""
     }
