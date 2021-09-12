@@ -51,8 +51,8 @@ export const UserDetails = () => {
   }, [dispatch, token, username])
 
   const renderedUserProfile = status === 'success' && (
-
-      <div className="flex p-2 w-full md:max-w-lg shadow-md justify-evenly relative">
+    <div className="flex flex-col items-center">
+      <div className="flex p-2 w-full md:max-w-lg shadow-md relative">
         <div className="flex m-1 justify-center">
           {user.profilePicture ? (
             <img
@@ -69,17 +69,17 @@ export const UserDetails = () => {
           )}
         </div>
 
-        <div className="flex flex-col p-1">
+        <div className="flex flex-col py-1">
           <h1 className="text-lg">{user.name}</h1>
           <div className="text-xs">@{user.username}</div>
           <div className="text-sm">{user.bio}</div>
           <div className="flex">{editProfileButton}</div>
 
-          <div className="flex text-xs justify-evenly">
-            <Link to={`/${username}/followers`} className="px-0.5">
+          <div className="flex text-xs justify-evenly px-1">
+            <Link to={`/${username}/followers`} className="py-0.5">
               {user.followers.length} followers
             </Link>
-            <Link to={`/${username}/following`} className="px-0.5">
+            <Link to={`/${username}/following`} className="py-0.5">
               {user.following.length} following
             </Link>
           </div>
@@ -87,20 +87,32 @@ export const UserDetails = () => {
         <div className="justify-self-end p-1">{renderLogoutButton}</div>
         <div className="absolute top-4 right-2 p-4">{renderFollowButton}</div>
       </div>
+      </div>
 
   )
 
   return (
-    
-          <div className="flex flex-col items-center">
+<>
+      <div>
       {status === 'success' && renderedUserProfile}
       {status === 'pending' && (
         <div className="text-xl text-center p-2">Loading...</div>
       )}
-      <UsersPosts user={user} />
+       <UsersPosts className="flex self-center" user={user} />
+         
+
 
 
     </div>
+   
+
+    </>
+
+
+
+    
+
+
 
 
   )

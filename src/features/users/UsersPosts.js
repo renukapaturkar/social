@@ -37,11 +37,15 @@ export const UsersPosts = ({ user }) => {
         <p className="p-2">No posts yet!</p>
       </div>
     ) : (
-      React.Children.toArray(orderedUserPosts?.map((post) => <PostBody post={post} />))
+
+        React.Children.toArray(orderedUserPosts?.map((post) => <PostBody post={post} />))
+
+
+      
     )
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {status === 'pending' && 'Loading'}
       {status === 'success' && renderUsersPosts}
     </div>

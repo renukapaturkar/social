@@ -36,8 +36,8 @@ export const PostBody = ({ post }) => {
   }
 
   return (
-    <div className="flex flex-col bg-white mt-1 w-full p-1 md:p-0 md:max-w-lg shadow">
-      <div className="flex p-2 w-full md:max-w-lg">
+    <div className="bg-white mt-1 w-full md:max-w-lg shadow rounded self-center">
+      <div className="flex pl-2 pt-3">
         <div className="flex">
           {profilePicture ? (
             <img
@@ -52,24 +52,24 @@ export const PostBody = ({ post }) => {
               <span>{name?.substr(0, 1)}</span>
             </div>
           )}
-        </div>
-        <div className="flex p-1">
-          <div className="flex items-center">
-            <span>
+            <span className="px-1">
               <Link className="text-md font-semibold" to={`/${username}`}>
                 {name}
               </Link>
               <span className="px-1 text-xs">@{username}</span>
               <span>{<DateFormat timestamp={createdAt} />}</span>
             </span>
-          </div>
         </div>
+
       </div>
 
-      <div>
-        {image && <img src={image} alt={name} className="w-full" />}
-        <p className="py-3 px-2 mx-2 text-sm font-normal ">{content}</p>
-      </div>
+            <div className="flex flex-col w-full">
+            {image && <img src={image} alt={name} className="mt-2" />}
+        <p className="py-3 px-2 text-sm font-normal">{content}</p>
+
+            </div>
+
+
 
       <span className="flex p-3 text-gray-400 justify-evenly">
         <button className={`flex ${colorToggle(post)}`} onClick={() => likeButtonHandler(post)}>
