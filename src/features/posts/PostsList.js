@@ -14,7 +14,7 @@ export const PostsList = () => {
   console.log(posts)
   useEffect(() => {
     if (token) {
-      ;(async () => {
+      (async () => {
         try {
           setStatus('pending')
           const result = await dispatch(getPostFeed())
