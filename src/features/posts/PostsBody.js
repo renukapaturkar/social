@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { likePost } from './postsSlice'
 
 export const PostBody = ({ post }) => {
-  const {currentUser} = useSelector(state=>state.auth)
+  const { currentUser } = useSelector((state) => state.auth)
   const {
     userId: { name, username, profilePicture },
     content,
@@ -26,12 +26,12 @@ export const PostBody = ({ post }) => {
       console.log(error)
     }
   }
-  console.log(currentUser, "currentUser")
+  console.log(currentUser, 'currentUser')
   const colorToggle = (post) => {
-    if(post?.likes.includes(currentUser._id)) {
-      return "text-red-600"
-    }else {
-      return ""
+    if (post?.likes.includes(currentUser._id)) {
+      return 'text-red-600'
+    } else {
+      return ''
     }
   }
 
@@ -52,27 +52,26 @@ export const PostBody = ({ post }) => {
               <span>{name?.substr(0, 1)}</span>
             </div>
           )}
-            <span className="px-1">
-              <Link className="text-md font-semibold" to={`/${username}`}>
-                {name}
-              </Link>
-              <span className="px-1 text-xs">@{username}</span>
-              <span>{<DateFormat timestamp={createdAt} />}</span>
-            </span>
+          <span className="px-1">
+            <Link className="text-md font-semibold" to={`/${username}`}>
+              {name}
+            </Link>
+            <span className="px-1 text-xs">@{username}</span>
+            <span>{<DateFormat timestamp={createdAt} />}</span>
+          </span>
         </div>
-
       </div>
 
-            <div className="flex flex-col w-full">
-            {image && <img src={image} alt={name} className="mt-2" />}
+      <div className="flex flex-col w-full">
+        {image && <img src={image} alt={name} className="mt-2" />}
         <p className="py-3 px-2 text-sm font-normal">{content}</p>
-
-            </div>
-
-
+      </div>
 
       <span className="flex p-3 text-gray-400 justify-evenly">
-        <button className={`flex ${colorToggle(post)}`} onClick={() => likeButtonHandler(post)}>
+        <button
+          className={`flex ${colorToggle(post)}`}
+          onClick={() => likeButtonHandler(post)}
+        >
           <AiFillHeart className="w-5 h-5" />
           <span className="px-1 text-sm">{likes.length}</span>
         </button>

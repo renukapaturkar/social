@@ -14,7 +14,7 @@ export const PostsList = () => {
   console.log(posts)
   useEffect(() => {
     if (token) {
-      (async () => {
+      ;(async () => {
         try {
           setStatus('pending')
           const result = await dispatch(getPostFeed())
@@ -29,7 +29,7 @@ export const PostsList = () => {
   }, [dispatch, token])
 
   const orderByDate = (posts) => {
-    return posts?.slice().sort((a,b) => b.createdAt.localeCompare(a.createdAt))
+    return posts?.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt))
   }
 
   const orderedPostList = orderByDate(posts)
@@ -42,14 +42,15 @@ export const PostsList = () => {
         <h1 className="p-2 text-purple-500 text-center">No posts found!</h1>
       </div>
     ) : (
-      React.Children.toArray(orderedPostList?.map((post) => <PostBody post={post} />))
+      React.Children.toArray(
+        orderedPostList?.map((post) => <PostBody post={post} />)
+      )
     )
 
   return (
     <div className="flex flex-col items-center">
       <AddPostForm />
 
-      
       {status === 'pending' && (
         <p className="text-2xl text-center">Loading...</p>
       )}

@@ -87,33 +87,16 @@ export const UserDetails = () => {
         <div className="justify-self-end p-1">{renderLogoutButton}</div>
         <div className="absolute top-4 right-2 p-4">{renderFollowButton}</div>
       </div>
-      </div>
-
+    </div>
   )
 
   return (
-<>
-      <div>
+    <div>
       {status === 'success' && renderedUserProfile}
       {status === 'pending' && (
         <div className="text-xl text-center p-2">Loading...</div>
       )}
-       <UsersPosts className="flex self-center" user={user} />
-         
-
-
-
+      <UsersPosts className="flex self-center" user={user} />
     </div>
-   
-
-    </>
-
-
-
-    
-
-
-
-
   )
 }
