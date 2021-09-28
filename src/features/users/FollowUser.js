@@ -9,9 +9,9 @@ export const FollowUser = ({ user }) => {
 
   const followOrUnfollowUser = () => {
     if (user?.followers.includes(currentUser?._id)) {
-      dispatch(unfollowUser(user._id))
+      dispatch(unfollowUser({targetId:user._id}))
     } else {
-      dispatch(followUser(user._id))
+      dispatch(followUser({targetId:user._id}))
     }
   }
 

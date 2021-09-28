@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-//1. get user
-//2. get following
-//3. get followers
-//4. update profile
-//5. follow user and unfollow user
-
 export const getUser = createAsyncThunk(
   'users/getuser',
   async (username, { fulfillWithValue, rejectWithValue }) => {
@@ -60,8 +54,8 @@ export const followUser = createAsyncThunk(
         targetUser
       )
 
-      console.log(response, 'follow user')
-      return fulfillWithValue(response)
+      console.log(response.data.user.followers, 'follow user')
+      return fulfillWithValue(response.data.user)
     } catch (error) {
       return rejectWithValue(error.response)
     }
@@ -77,7 +71,7 @@ export const unfollowUser = createAsyncThunk(
         targetUser
       )
       console.log(response, 'unfollow user')
-      return fulfillWithValue(response)
+      return fulfillWithValue(response.data.user)
     } catch (error) {
       return rejectWithValue(error.response)
     }
@@ -86,15 +80,31 @@ export const unfollowUser = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   'users/updateprofile',
-  async (values, { fulfillWithValue, rejectWithValue }) => {
+  async ({values, image}, { fulfillWithValue, rejectWithValue }) => {
+
+    let data
+    if(image) {
+      data = new FormData()
+      const fileName = Date().now + image.name
+      data.append('image', image)
+      data.append('name', fileName)
+      try{
+        const response = await axios.post('https://socials-api-server-1.renukapaturkar.repl.co/images/upload', data)
+        if(response.status === 200){
+          values.profilePicture = response.data.url
+        }
+      }catch(error){
+        console.log(error)
+      }
+
+
+
+    }
+
     try {
-      const response = await axios.post(
-        'https://socials-api-server-1.renukapaturkar.repl.co/users/updateuser',
-        values
-      )
-      console.log(response, 'updated user')
+      const response = await axios.post('https://socials-api-server-1.renukapaturkar.repl.co/users/updateuser',values)
       return fulfillWithValue(response)
-    } catch (error) {
+    }catch(error){
       return rejectWithValue(error.response)
     }
   }
@@ -132,7 +142,6 @@ const usersSlice = createSlice({
       state.status = 'pending'
     },
     [getFollowers.fulfilled]: (state, action) => {
-      console.log(action.payload, 'action for getfollowers')
       state.status = 'fulfilled'
       state.followers = action.payload
     },

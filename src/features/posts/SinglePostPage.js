@@ -20,7 +20,7 @@ export const SinglePostPage = () => {
 
   useEffect(() => {
     if (token) {
-      ;(async () => {
+      (async () => {
         try {
           setStatus('pending')
           const result = await dispatch(getPost(postId))

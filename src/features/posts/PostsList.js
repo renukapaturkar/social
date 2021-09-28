@@ -11,10 +11,9 @@ export const PostsList = () => {
   const { token } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const [status, setStatus] = useState('idle')
-  console.log(posts)
   useEffect(() => {
     if (token) {
-      ;(async () => {
+      (async () => {
         try {
           setStatus('pending')
           const result = await dispatch(getPostFeed())

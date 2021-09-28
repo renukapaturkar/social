@@ -37,7 +37,7 @@ export const UserDetails = () => {
   )
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
         setStatus('pending')
         const result = await dispatch(getUser(username))
@@ -77,10 +77,10 @@ export const UserDetails = () => {
 
           <div className="flex text-xs justify-evenly px-1">
             <Link to={`/${username}/followers`} className="py-0.5">
-              {user.followers.length} followers
+              {user?.followers.length} followers
             </Link>
             <Link to={`/${username}/following`} className="py-0.5">
-              {user.following.length} following
+              {user?.following.length} following
             </Link>
           </div>
         </div>
@@ -92,7 +92,7 @@ export const UserDetails = () => {
 
   return (
     <div>
-      {status === 'success' && renderedUserProfile}
+      {user && renderedUserProfile}
       {status === 'pending' && (
         <div className="text-xl text-center p-2">Loading...</div>
       )}

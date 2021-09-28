@@ -15,7 +15,7 @@ export const Followers = () => {
 
   useEffect(() => {
     if (token) {
-      ;(async () => {
+      (async () => {
         try {
           setStatus('pending')
           const result = await dispatch(getFollowers(username))

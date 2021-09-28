@@ -34,7 +34,6 @@ export const postComment = createAsyncThunk(
         `https://socials-api-server-1.renukapaturkar.repl.co/posts/${postId}/comment`,
         { comment }
       )
-      console.log(response, 'this is comment response')
       return fulfillWithValue(response.data.post)
     } catch (error) {
       return rejectWithValue(error.response)
@@ -55,13 +54,12 @@ export const createPost = createAsyncThunk(
       const fileName = Date().now + image.name
       formData.append('image', image)
       formData.append('name', fileName)
-      console.log(formData, 'this is formData')
       try {
         const response = await axios.post(
           'https://socials-api-server-1.renukapaturkar.repl.co/images/upload',
           formData
         )
-        if (response.status === 201) {
+        if (response.status === 200) {
           PostData.image = response.data.url
         }
       } catch (error) {
@@ -73,7 +71,6 @@ export const createPost = createAsyncThunk(
         'https://socials-api-server-1.renukapaturkar.repl.co/posts/newpost',
         PostData
       )
-      console.log(response.data.data, "response.data.data.data")
       return fulfillWithValue(response.data.data)
     } catch (error) {
       return rejectWithValue(error.response)

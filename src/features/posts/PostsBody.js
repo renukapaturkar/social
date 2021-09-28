@@ -26,7 +26,6 @@ export const PostBody = ({ post }) => {
       console.log(error)
     }
   }
-  console.log(currentUser, 'currentUser')
   const colorToggle = (post) => {
     if (post?.likes.includes(currentUser._id)) {
       return 'text-red-600'
@@ -79,9 +78,6 @@ export const PostBody = ({ post }) => {
           <BsChat className="w-4 h-5" />
           <span className="px-1 text-sm">{comments.length}</span>
         </Link>
-        <button className="flex">
-          <AiOutlineShareAlt className="w-5 h-5" />
-        </button>
       </span>
     </div>
   )

@@ -36,6 +36,11 @@ export const Login = () => {
     }
   }
 
+  const loginAsGuest = (e) => {
+    setEmail("rpaturkar21@gmail.com")
+    setPassword("Renuka@1234")
+  }
+
 
 
   return (
@@ -53,15 +58,17 @@ export const Login = () => {
               type="text"
               className="block border border-grey-light w-full p-2 rounded mb-4 focus:outline-none focus:ring"
               name="username"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Username or Email"
+              placeholder="Email"
             />
   
             <input
               type="password"
               className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring"
               name="password"
+              value={password}
               required
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
@@ -72,6 +79,13 @@ export const Login = () => {
               className="w-full text-center py-3 rounded bg-purple-500 text-white focus:outline-none focus:ring my-1 text-lg"
             >
               {status === 'pending' ? 'loading...' : 'Log In'}
+            </button>
+
+            <button
+              onClick={loginAsGuest}
+              className="w-full text-center py-3 rounded bg-purple-500 text-white focus:outline-none focus:ring my-1 text-lg"
+            >
+              {status === 'pending' ? 'loading...' : 'Login As Guest'}
             </button>
   
             <div className="text-grey-dark mt-3 text-center">

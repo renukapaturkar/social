@@ -3,12 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { setupAuthHeaderForServiceCalls } from './utils/utils'
 import { clearLocalStorage } from './utils/clearLocalStorage'
 
-const currentUser = {
-  email: '',
-  name: '',
-  username: '',
-  _id: '',
-}
+
 
 export const signUp = createAsyncThunk(
   'auth/signup',
@@ -39,12 +34,20 @@ export const login = createAsyncThunk(
         localStorage.setItem('token', JSON.stringify(response.data.token))
         localStorage.setItem('userData', JSON.stringify(response.data.userData))
       }
+      console.log(response, "LOGIN")
       return fulfillWithValue(response.data)
     } catch (error) {
       return rejectWithValue(error.response)
     }
   }
 )
+
+const currentUser = {
+  email: '',
+  name: '',
+  username: '',
+  _id: '',
+}
 
 const authSlice = createSlice({
   name: 'auth',
@@ -73,7 +76,7 @@ const authSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       state.status = 'success'
       state.token = action.payload.token
-      state.userData = action.payload.userData
+      state.currentUser = action.payload.userData
     },
     [login.rejected]: (state, action) => {
       state.error = action.error.message

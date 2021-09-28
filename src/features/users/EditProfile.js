@@ -1,34 +1,36 @@
 import { useDispatch, useSelector } from "react-redux"
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { IoImageOutline } from 'react-icons/io5'
 import { ImCancelCircle } from 'react-icons/im'
 import { updateProfile, updateUserProfile } from "./usersSlice"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { useNavigate } from "react-router"
+import {Link} from 'react-router-dom'
 
 
 
 export const EditProfile = () => {
     const {currentUser} = useSelector(state => state.auth)
+    console.log(currentUser, "currentUser")
     const {user} = useSelector(state => state.users)
-    const [profilePicture, setProfilPicture] = useState("")
+    const [image, setImage] = useState("")
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [values, setValues] = useState({
-        name:"",
-        username: "",
-        bio:""
+        name:currentUser.name,
+        bio:currentUser.bio,
+        profilePicture: currentUser.profilePicture 
 
     })
 
 
     const changeProfilePicture = (e) => {
-        setProfilPicture(e.target.files[0])
+        setImage(e.target.files[0])
         e.target.value = ""
     }
 
     const removeProfilePicture = () => {
-        setProfilPicture("")
+        setImage("")
     }
 
     const onChangeHandler = (e) => {
@@ -41,19 +43,21 @@ export const EditProfile = () => {
     const submitHandler = async(e) => {
         e.preventDefault()
         try{
-            const result = await dispatch(updateProfile({values, profilePicture}))
+          console.log(values, image, "values and profilepicture")
+            const result = await dispatch(updateProfile({values, image}))
             unwrapResult(result)
-            console.log(result, "Result for update profile")
             if(result){
                 const updatedProfile = {
-                    name: result?.payload.name,
-                    username: result?.payload.username,
-                    bio: result?.payload.bio
+                    _id: result?.payload.data.user._id,
+                    name: result?.payload.data.user.name,
+                    username: result?.payload.data.user.username,
+                    profilePicture: result?.payload.data.user.profilePicture,
+                    bio: result?.payload.data.user.bio
                 }
                 dispatch(updateUserProfile(updatedProfile))
             }
-            navigate(`/home`)
-            setProfilPicture("")
+
+            setImage("")
             setValues("")
         }catch(error){
             console.log(error)
@@ -80,7 +84,7 @@ export const EditProfile = () => {
             onChange={changeProfilePicture}
           />
         </label>
-        {profilePicture && (
+        {image && (
               <ImCancelCircle
                 className="m-4 text-2xl cursor-pointer text-gray-500"
                 onClick={removeProfilePicture}
@@ -105,17 +109,6 @@ export const EditProfile = () => {
             />
           </label>
 
-          <label className="p-1 m-1">
-            <div className="text-md font-semibold">username</div>
-            <input
-              className="border w-3/4 rounded-md p-1 m-1"
-              defaultValue={values.username}
-              type="text"
-              name="username"
-              id="username"
-              onChange={onChangeHandler}
-            />
-          </label>
 
           <label className="p-1 m-1">
             <div className="text-md font-semibold">Bio</div>
@@ -135,7 +128,7 @@ export const EditProfile = () => {
               Save
             </button>
             <button className="border p-2 px-4 rounded-md text-purple-600 border-purple-600 text-xl m-2">
-              Cancel
+              <Link to={`/${currentUser.username}`}>Cancel</Link>
             </button>
           </div>
         </div>

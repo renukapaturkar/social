@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { AiOutlineHome } from 'react-icons/ai'
+import { AiOutlineHome, AiOutlineSearch } from 'react-icons/ai'
 import { IoIosNotificationsOutline } from 'react-icons/io'
 import { VscAccount } from 'react-icons/vsc'
 import { useSelector } from 'react-redux'
 
-export const Navbar = () => {
+export const Navbar = ({setShowModal}) => {
   const { currentUser, token} = useSelector((state) => state.auth)
   return (
     <nav>
@@ -18,17 +18,23 @@ export const Navbar = () => {
         {
           token && (
             <div className="flex space-x-2 p-2 text-white">
+              
+            <button onClick={setShowModal}>
+            <AiOutlineSearch className="flex w-6 h-6"/>
+            </button>
+
             <Link to="/home">
               <AiOutlineHome className="flex w-6 h-6" />
             </Link>
+
   
             <Link to="/notifications">
               <IoIosNotificationsOutline className="flex w-6 h-6" />
             </Link>
    
-              <Link to={`/${currentUser?.username}`}>
+              {currentUser && <Link to={`/${currentUser?.username}`}>
                 <VscAccount className="flex w-6 h-6" />
-              </Link>
+              </Link>}
   
           </div>
           )
