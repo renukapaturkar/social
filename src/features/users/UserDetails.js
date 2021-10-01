@@ -51,7 +51,7 @@ export const UserDetails = () => {
   }, [dispatch, token, username])
 
   const renderedUserProfile = status === 'success' && (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-8 m-4">
       <div className="flex p-2 w-full md:max-w-lg shadow-md relative">
         <div className="flex m-1 justify-center">
           {user.profilePicture ? (
@@ -71,15 +71,15 @@ export const UserDetails = () => {
 
         <div className="flex flex-col py-1">
           <h1 className="text-lg">{user.name}</h1>
-          <div className="text-xs">@{user.username}</div>
+          <div className="text-md">@{user.username}</div>
           <div className="text-sm">{user.bio}</div>
           <div className="flex">{editProfileButton}</div>
 
           <div className="flex text-xs justify-evenly px-1">
-            <Link to={`/${username}/followers`} className="py-0.5">
+            <Link to={`/${username}/followers`} className="py-1 px-1">
               {user?.followers.length} followers
             </Link>
-            <Link to={`/${username}/following`} className="py-0.5">
+            <Link to={`/${username}/following`} className="py-1 px-1">
               {user?.following.length} following
             </Link>
           </div>

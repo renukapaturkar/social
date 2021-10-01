@@ -60,11 +60,12 @@ export const PostBody = ({ post }) => {
           </span>
         </div>
       </div>
-
+      <Link to={`/${username}/posts/${post._id}`} className="flex">
       <div className="flex flex-col w-full">
         {image && <img src={image} alt={name} className="mt-2" />}
         <p className="py-3 px-2 text-sm font-normal">{content}</p>
       </div>
+      </Link>
 
       <span className="flex p-3 text-gray-400 justify-evenly">
         <button

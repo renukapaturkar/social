@@ -47,14 +47,17 @@ export const Followers = () => {
               />
             ) : (
               <div
-                className={`flex text-7xl capitalize text-white items-center justify-center rounded-full w-10 h-10 md:w-10 md:h-10 bg-purple-600`}
+                className={`flex text-xl capitalize text-white items-center justify-center rounded-full w-10 h-10 md:w-10 md:h-10 bg-purple-600`}
               >
                 <span>{user.name.substr(0, 1)}</span>
               </div>
             )}
-            <div className=" flex flex-col">
+            <div className="flex flex-col">
+              <Link to={`/${user.username}`}>
               <div className="px-1 text-sm font-semibold">{user.username}</div>
               <div className="px-1 text-sm">{user.name}</div>
+              </Link>
+
             </div>
           </div>
         ))
@@ -62,7 +65,7 @@ export const Followers = () => {
     )
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-8 m-4">
       <div className="bg-white mt-1 p-3 md:p-3 md:p-0 w-full md:w-1/2 rounded">
         <div className="mx-2 py-1 border-b-2">
           <Link to={`/${username}`} className="flex items-center text-sm">

@@ -43,6 +43,12 @@ export const SinglePostPage = () => {
     }
   }
 
+  const onEnterPress = (e) => {
+    if(e.key === "Enter"){
+        handleComment()
+    }
+}
+
   const renderPost = status === 'success' && (
     <div className="flex flex-col w-full md:max-w-lg items-center">
       <PostBody post={post} />
@@ -58,6 +64,7 @@ export const SinglePostPage = () => {
         <button
           className="text-md font-semibold p-2 text-purple-600"
           disabled={!isEmpty}
+          onKeyPress={onEnterPress}
           onClick={() => handleComment(post)}
         >
           POST

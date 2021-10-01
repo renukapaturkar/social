@@ -14,7 +14,7 @@ import { setupAuthHeaderForServiceCalls } from './features/auth/utils/utils'
 import { EditProfile } from './features/users/EditProfile'
 import { Followers } from './features/users/Followers'
 import { Followings } from './features/users/Followings'
-import { Notifications } from './features/users/Notifications'
+import { Notifications } from './features/notifications/Notifications'
 const token = JSON.parse(localStorage.getItem('token'))
 const userData = JSON.parse(localStorage.getItem('userData'))
 

@@ -38,8 +38,9 @@ export const AddPostForm = () => {
     }
   }
 
+
   return (
-    <div className="flex flex-col w-full md:max-w-lg shadow-md m-4 items-center p-2 m-1">
+    <div className="flex flex-col w-full md:max-w-lg shadow-md items-center p-8 m-6 bg-white">
       <form className=" flex flex-col w-full p-1 md:max-w-lg h-32">
         <textarea
           className="w-full h-32 md:max-w-lg border bg-gray-200 rounded-sm px-2 justify-center"
@@ -78,7 +79,7 @@ export const AddPostForm = () => {
               disabled={!checkContent}
               onClick={createPostHandler}
             >
-              Post
+              {status==="pending"? "Posting..." : "Post"}
             </button>
           </div>
         </div>
