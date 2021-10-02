@@ -76,7 +76,7 @@ export const SinglePostPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center p-8 m-4">
         <Link to="/home" className="flex text-md justify-self-start">
           <IoIosArrowBack />
           <span>Back</span>

@@ -16,6 +16,7 @@ export const EditProfile = () => {
     const [image, setImage] = useState("")
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const [status, setStatus] = useState("idle")
     const [values, setValues] = useState({
         name:currentUser.name,
         bio:currentUser.bio,
@@ -43,9 +44,11 @@ export const EditProfile = () => {
     const submitHandler = async(e) => {
         e.preventDefault()
         try{
+          setStatus("pending")
           console.log(values, image, "values and profilepicture")
             const result = await dispatch(updateProfile({values, image}))
             unwrapResult(result)
+            setStatus("success")
             if(result){
                 const updatedProfile = {
                     _id: result?.payload.data.user._id,
@@ -56,18 +59,20 @@ export const EditProfile = () => {
                 }
                 dispatch(updateUserProfile(updatedProfile))
             }
+            
 
             setImage("")
             setValues("")
         }catch(error){
             console.log(error)
+            setStatus("idle")
         }
             
     }
 
 
   return (
-    <div className="flex w-full border h-auto p-4 ">
+    <div className="flex w-full border h-auto p-8 m-4">
       <form className="flex flex-col w-full p-2 align-center" onSubmit={submitHandler}>
         <h1 className="text-center m-2 text-xl font-semibold">Edit Profile</h1>
         <div className="flex">
@@ -125,7 +130,7 @@ export const EditProfile = () => {
 
           <div className="p-2 m-2 space-between items-center">
             <button className="border p-2 px-4 rounded-md bg-purple-600 text-white text-xl m-2">
-              Save
+              {status === "pending" ? "Saving..." : "Save"}
             </button>
             <button className="border p-2 px-4 rounded-md text-purple-600 border-purple-600 text-xl m-2">
               <Link to={`/${currentUser.username}`}>Cancel</Link>

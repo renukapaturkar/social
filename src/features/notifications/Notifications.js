@@ -39,7 +39,7 @@ export const Notifications = () => {
           <div>
             <Link
               className="flex items-center space-x-2 pl-2 py-2"
-              to={`/${details.user.username}`}
+              to={`/${details?.user.username}`}
             >
               {details.user.profilePicture ? (
                 <img
@@ -66,7 +66,7 @@ export const Notifications = () => {
       )
     )
   return (
-    <div className="flex items-center flex-col mt-3 mb-10">
+    <div className="flex items-center flex-col mt-3 mb-10 p-8">
       <Link to={`/home`} className="flex items-center text-sm">
         <IoIosArrowBack />
         <span>Back</span>
