@@ -10,7 +10,7 @@ export const signUp = createAsyncThunk(
   async (values, { fulfillWithValue, rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://socials-api-server-1.renukapaturkar.repl.co/signup',
+        'https://cors-anywhere.herokuapp.com/https://socials-api-server-1.renukapaturkar.repl.co/signup',
         values
       )
       return fulfillWithValue(response)
@@ -25,7 +25,7 @@ export const login = createAsyncThunk(
   async (values, { fulfillWithValue, rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://socials-api-server-1.renukapaturkar.repl.co/signin',
+        'https://cors-anywhere.herokuapp.com/https://socials-api-server-1.renukapaturkar.repl.co/signin',
         values
       )
 
